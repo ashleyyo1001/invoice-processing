@@ -41,10 +41,12 @@ TOTAL $154.06
 
 import spacy
 
-spacy_nlp = spacy.load('testnew')
-document = spacy_nlp(article)
 
-print('Original Sentence: %s' % (article))
+def get_details(text):
+	spacy_nlp = spacy.load('testnew')
+	document = spacy_nlp(text)
 
-for element in document.ents:
-    print('Type: %s, Value: %s' % (element.label_, element))
+	print('Original Sentence: %s' % (text))
+
+	for element in document.ents:
+	    print('Type: %s, Value: %s' % (element.label_, element))
