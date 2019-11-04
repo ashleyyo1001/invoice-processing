@@ -6,7 +6,7 @@ import pytesseract
 
 def image_to_text(image_name):
 	# If you don't have tesseract executable in your PATH, include the following:
-	pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+	#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 	# Example tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
 
 	# Simple image to string
@@ -19,7 +19,7 @@ def image_to_text(image_name):
 	return filename
 
 def send_string(image_name):
-	pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+	#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 	# Example tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
 
 	# Simple image to string

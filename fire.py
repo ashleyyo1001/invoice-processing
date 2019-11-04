@@ -8,30 +8,50 @@ import urllib.request
 import ocr
 import add
 import sp
-cred = credentials.Certificate("credentials.json")
-#firebase_admin.initialize_app(cred)
+from flask import Flask,jsonify,request
 
-# Fetch the service account key JSON file contents
-#cred = credentials.Certificate("credentials.json")
+app = Flask(__name__)
+urls =[
+    {
+        'url' : ''
+    }
+]
+@app.route('/')
+def manage_invoice():
+    request_data = request.get_json()
+    urls=[
+        {
+            'url' : request_data['url']
+        }
+    ]
+    print(urls[0]['url'])
+    cred = credentials.Certificate("credentials.json")
+    #firebase_admin.initialize_app(cred)
 
-# Initialize the app with a service account, granting admin privileges
-app = firebase_admin.initialize_app(cred, {
-    'storageBucket': 'assets-bills.appspot.com',
-}, name='storage')
+    # Fetch the service account key JSON file contents
+    #cred = credentials.Certificate("credentials.json")
 
-bucket = storage.bucket(app=app)
-blob = bucket.blob("images/2019-10-28 22:50:54.098189.png")
+    # Initialize the app with a service account, granting admin privileges
+    app = firebase_admin.initialize_app(cred, {
+        'storageBucket': 'assets-bills.appspot.com',
+    }, name='storage')
 
-x=(blob.generate_signed_url(datetime.timedelta(seconds=1000), method='GET'))
+    bucket = storage.bucket(app=app)
+    blob = bucket.blob(urls[0]['url'])
 
-#webbrowser.open(x)
+    x=(blob.generate_signed_url(datetime.timedelta(seconds=1000), method='GET'))
 
-urllib.request.urlretrieve(x, "firebasetest.jpg")
+    #webbrowser.open(x)
 
-filename=ocr.image_to_text("test.png")
+    urllib.request.urlretrieve(x, "firebasetest.jpg")
 
-address=add.get_string(filename) #params: filename
+    filename=ocr.image_to_text("test.png")
 
-string=ocr.send_string("test.png")
+    address=add.get_string(filename) #params: filename
 
-sp.get_details(string)
+    string=ocr.send_string("test.png")
+
+    sp.get_details(string)
+    return jsonify(urls[0]['url'])
+app.debug = True
+app.run(port=5202)
