@@ -47,6 +47,9 @@ def get_details(text):
 	document = spacy_nlp(text)
 
 	print('Original Sentence: %s' % (text))
-
+	txt=""
 	for element in document.ents:
 	    print('Type: %s, Value: %s' % (element.label_, element))
+	    txt+="Type: "+ str(element.label_)+" , "+"Value: " +str(element)
+
+	return txt

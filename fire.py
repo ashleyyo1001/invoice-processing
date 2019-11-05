@@ -51,7 +51,7 @@ def manage_invoice():
 
     string=ocr.send_string("test.png")
 
-    sp.get_details(string)
-    return jsonify(urls[0]['url'])
+    details=sp.get_details(string)
+    return jsonify(details)
 app.debug = True
-app.run(port=5202)
+app.run(port=5203)
